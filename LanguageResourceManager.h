@@ -51,6 +51,10 @@ public:
     int getNineMensMorrisRemoveText1X() const;
     const string& getNineMensMorrisRemoveText2() const;
     int getNineMensMorrisRemoveText2X() const;
+    const string& getNineMensMorrisCantRemoveText1() const;
+    int getNineMensMorrisCantRemoveText1X() const;
+    const string& getNineMensMorrisCantRemoveText2() const;
+    int getNineMensMorrisCantRemoveText2X() const;
     const string& getGreenName() const;
     const string& getRedName() const;
     const string& getPinkName() const;

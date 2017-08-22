@@ -59,6 +59,21 @@ void NineMensMorrisBoard::drawFrame(bool top)
     SDL_RenderPresent(renderer);
 }
 
+void NineMensMorrisBoard::drawCantRemoveFrame(bool top)
+{
+    rect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
+    SDL_RenderCopy(renderer,top ? whitebackgroundtexture : blackbackgroundtexture,0,&rect);
+    showText(languageresourcemanager->getNineMensMorrisCantRemoveText1(),
+             languageresourcemanager->getNineMensMorrisCantRemoveText1X(),
+             current== 0 ? 0 : FRAME_HEIGHT + BOARD_HEIGHT,current==0 ? WHITE_LETTER_COLOR : BLACK_LETTER_COLOR,letterfont);
+    showText(languageresourcemanager->getNineMensMorrisCantRemoveText2(),
+             languageresourcemanager->getNineMensMorrisCantRemoveText2X(),
+             current== 0 ? REMOVE_TEXT_SPACE : FRAME_HEIGHT + BOARD_HEIGHT + REMOVE_TEXT_SPACE ,current==0 ? WHITE_LETTER_COLOR : BLACK_LETTER_COLOR,letterfont);
+    SDL_RenderPresent(renderer);
+    SDL_Delay(1000);
+}
+
+
 void NineMensMorrisBoard::drawRemoveFrame(bool top)
 {
     rect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
@@ -216,6 +231,8 @@ void NineMensMorrisBoard::mill(const Point* point)
             }
         }
     }
+    else if(checkMill(point) >= 0)
+        drawCantRemoveFrame(current==0);
 }
 
 int NineMensMorrisBoard::checkMill(const Point * point)

@@ -106,7 +106,6 @@ class NineMensMorrisBoard : public Board{
      */
     void firstPhase();
 
-
     /** \brief Handles the phase of moving pieces
      *
      * \return void
@@ -129,7 +128,6 @@ class NineMensMorrisBoard : public Board{
      *
      */
     void showImage(SDL_Point position,SDL_Texture* image);
-
 
     /** \brief Shows a text on the screen
      *
@@ -158,6 +156,14 @@ class NineMensMorrisBoard : public Board{
      *
      */
     void drawRemoveFrame(bool top);
+
+    /** \brief Draws the frame needed when there's a new mill, but the other player has no removable pieces
+     *
+     * \param top bool True, if the top frame should be drawn, false if the bottom frame should be drawn
+     * \return void
+     *
+     */
+    void drawCantRemoveFrame(bool top);
 
     /** \brief Draws the board, with pieces
      *

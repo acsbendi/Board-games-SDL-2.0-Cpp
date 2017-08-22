@@ -254,6 +254,27 @@ Language LanguageResourceManager::getCurrentLanguage() const
     return current;
 }
 
+const string& LanguageResourceManager::getNineMensMorrisCantRemoveText1() const
+{
+    return strings[47];
+}
+
+int LanguageResourceManager::getNineMensMorrisCantRemoveText1X() const
+{
+    return atoi(strings[48].c_str());
+}
+
+const string& LanguageResourceManager::getNineMensMorrisCantRemoveText2() const
+{
+    return strings[49];
+}
+
+int LanguageResourceManager::getNineMensMorrisCantRemoveText2X() const
+{
+    return atoi(strings[50].c_str());
+}
+
+
 const string LanguageResourceManager::getLanguageString(Language language) const
 {
     switch (language)
