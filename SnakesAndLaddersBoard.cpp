@@ -445,12 +445,12 @@ SnakesAndLaddersBoard::SnakesAndLaddersBoard(LanguageResourceManager* languagere
 
 void SnakesAndLaddersBoard::play()
 {
-//    while((*players[current])[0]->getPoint()->getId() != numberofpoints )
-//    {
-//        current = current == numberofplayers - 1 ? 0 : current + 1;
-//        turn();
-//    }
-    showEnd(0); //the game is over, the current player reached the last square
+    while((*players[current])[0]->getPoint()->getId() != numberofpoints )
+    {
+        current = current == numberofplayers - 1 ? 0 : current + 1;
+        turn();
+    }
+    showEnd(current); //the game is over, the current player reached the last square
 }
 
 void SnakesAndLaddersBoard::rollAnimation(int roll)
