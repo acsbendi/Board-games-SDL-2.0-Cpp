@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SDL_image.h>
-#include "player.h"
+#include "Player.h"
 
 Player::Player(const string name, int numberofpieces, Point * starting, const char* image , SDL_Renderer* renderer) : name(name), numberofpieces(numberofpieces)
 {

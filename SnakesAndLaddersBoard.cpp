@@ -3,7 +3,7 @@
 #include <ctime>
 #include <sstream>
 #include "snakesandladdersboard.h"
-#include "helper.h"
+#include "Helper.h"
 
 
 int SnakesAndLaddersBoard::click(int& x, int& y)

@@ -1,4 +1,4 @@
-#include "point.h"
+#include "Point.h"
 
 Point::Point(int az) : id(az), piece(0)
 {

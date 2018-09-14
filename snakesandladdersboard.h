@@ -1,6 +1,6 @@
 #ifndef KIGYOKESLETRAKPALYA_H_INCLUDED
 #define KIGYOKESLETRAKPALYA_H_INCLUDED
-#include "board.h"
+#include "Board.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>

@@ -1,7 +1,7 @@
 #ifndef BOARD_H_INCLUDED
 #define BOARD_H_INCLUDED
-#include "point.h"
-#include "player.h"
+#include "Point.h"
+#include "Player.h"
 #include "LanguageResourceManager.h"
 
 /** \brief The base class for boards, each tables game inherits from this

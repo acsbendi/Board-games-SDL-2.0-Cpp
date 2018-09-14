@@ -1,6 +1,6 @@
 #ifndef MALOMPALYA_H_INCLUDED
 #define MALOMPALYA_H_INCLUDED
-#include "board.h"
+#include "Board.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 
