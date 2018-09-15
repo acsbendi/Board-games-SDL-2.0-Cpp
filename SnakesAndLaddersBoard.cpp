@@ -1,6 +1,4 @@
-#include <cstdlib>
 #include <iostream>
-#include <ctime>
 #include <sstream>
 #include "snakesandladdersboard.h"
 #include "Helper.h"
@@ -121,7 +119,7 @@ void SnakesAndLaddersBoard::drawBoard() {
 }
 
 void SnakesAndLaddersBoard::turn() {
-    int rolled = rand() % 6 + 1;    //randomize the rolled number
+    int rolled =  dist6(rng);    //randomize the rolled number
     roll(rolled);     //graphical part of the roll
 
     Point* move;   //the point on which the player's piece is after the roll (it can be the starting point of a snake or a ladder)
@@ -420,10 +418,10 @@ void SnakesAndLaddersBoard::setPoints(int size, const char* connections) {
 }
 
 SnakesAndLaddersBoard::SnakesAndLaddersBoard(LanguageResourceManager* languageresourcemanager, int meret,
-                                             const char* connections) {
+                                             const char* connections) : dist6{1,6} {
+    rng.seed(std::random_device()());
     this->languageresourcemanager = languageresourcemanager;
     setPoints(meret, connections);   //setting points
-    srand(time(0));     //initialization of random number generator
     initGraphics();    //loading graphical interface
     drawEmptyBoard();  //drawing an empty board - number of players no yet selected
     SDL_RenderPresent(renderer);

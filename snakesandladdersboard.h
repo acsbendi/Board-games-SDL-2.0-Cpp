@@ -1,6 +1,7 @@
 #ifndef KIGYOKESLETRAKPALYA_H_INCLUDED
 #define KIGYOKESLETRAKPALYA_H_INCLUDED
 
+#include <random>
 #include "Board.h"
 #include <SDL.h>
 #include <SDL_image.h>
@@ -9,6 +10,7 @@
 /** \brief The class that manages snakes and ladders game
  */
 class SnakesAndLaddersBoard : public Board {
+private:
     /*
     constants for graphics
     */
@@ -99,6 +101,9 @@ class SnakesAndLaddersBoard : public Board {
     SDL_Texture* numbertexture = nullptr;
     SDL_Rect rect;      /**<  A rectangle to be freely overwritten for displaying various things on the screen */
 
+
+    std::mt19937 rng;
+    std::uniform_int_distribution<int> dist6;
 
 
     /*!
