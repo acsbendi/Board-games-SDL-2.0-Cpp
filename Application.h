@@ -13,14 +13,14 @@
 #include "LanguageResourceManager.h"
 
 
-
 /** \brief The class that manages game and language selection, each game can be started from here
  */
-class Application
-{
+class Application {
     /** \brief The part of screen the user's mouse is currently pointing at
      */
-    enum Selected { ninemensmorris, snakesandladders, language, none};
+    enum Selected {
+        ninemensmorris, snakesandladders, language, none
+    };
     Selected selected = none;   /**< State variable for indicating mouse position */
     LanguageResourceManager* languageresourcemanager;
     static const int WINDOW_WIDTH = 640;
@@ -39,24 +39,24 @@ class Application
     static const int LANGUAGE_LIST_BOTTOM_HEIGHT = 18;
     static const int LANGUAGE_LIST_BOTTOM_OVERLAP = 5;
     const SDL_Color LETTER_COLOR = {44, 127, 3};
-    const SDL_Color SELECTION_COLOR =  {88,93,102,130};
-    SDL_Window* window = NULL;
-    SDL_Renderer* renderer = NULL;
-    SDL_Surface* startpicture = NULL;
-    SDL_Texture* startpicturetexture = NULL; //infrastructure, manufacture
-    SDL_Surface* languageselectionicon = NULL;
-    SDL_Texture* languageselectionicontexture = NULL;
-    SDL_Surface* languageselectiontop = NULL;
-    SDL_Texture* languageselectiontoptexture = NULL;
-    SDL_Surface* languageselectionmiddle = NULL;
-    SDL_Texture* languageselectionmiddletexture = NULL;
-    SDL_Surface* languageselectionmiddlewhite = NULL;
-    SDL_Texture* languageselectionmiddlewhitetexture = NULL;
-    SDL_Surface* languageselectionbottom = NULL;
-    SDL_Texture* languageselectionbottomtexture = NULL;
-    SDL_Surface* text = NULL;
-    SDL_Texture* texttexture = NULL;
-    TTF_Font* font = NULL;  /**< Font used for showing the text of languages */
+    const SDL_Color SELECTION_COLOR = {88, 93, 102, 130};
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
+    SDL_Surface* startpicture = nullptr;
+    SDL_Texture* startpicturetexture = nullptr; //infrastructure, manufacture
+    SDL_Surface* languageselectionicon = nullptr;
+    SDL_Texture* languageselectionicontexture = nullptr;
+    SDL_Surface* languageselectiontop = nullptr;
+    SDL_Texture* languageselectiontoptexture = nullptr;
+    SDL_Surface* languageselectionmiddle = nullptr;
+    SDL_Texture* languageselectionmiddletexture = nullptr;
+    SDL_Surface* languageselectionmiddlewhite = nullptr;
+    SDL_Texture* languageselectionmiddlewhitetexture = nullptr;
+    SDL_Surface* languageselectionbottom = nullptr;
+    SDL_Texture* languageselectionbottomtexture = nullptr;
+    SDL_Surface* text = nullptr;
+    SDL_Texture* texttexture = nullptr;
+    TTF_Font* font = nullptr;  /**< Font used for showing the text of languages */
     Language temporaryselectedlanguage;  /**< Indicates which language's rectangle (showing the language) was the mouse pointing on last */
 
     /** \brief Shows the default start menu, without anything being selected
@@ -121,10 +121,6 @@ public:
 
     ~Application();
 };
-
-
-
-
 
 
 #endif // APPLICATION_H_INCLUDED

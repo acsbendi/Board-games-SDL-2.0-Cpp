@@ -1,20 +1,24 @@
 #ifndef LANGUAGERESOURCEMANAGER_H_INCLUDED
 #define LANGUAGERESOURCEMANAGER_H_INCLUDED
+
 #include <string>
 #include <vector>
+
 using std::string;
 using std::vector;
 
-enum Language { magyar, english };
+enum Language {
+    magyar, english
+};
 
 /** \brief The class for managing all language specific resources - texts, buttons with text on it
  */
-class LanguageResourceManager{
+class LanguageResourceManager {
     vector<string> strings;
     vector<Language> languages = {magyar, english};
     Language current;
 public:
-    LanguageResourceManager(Language language);
+    explicit LanguageResourceManager(Language language);
     void setLanguage(Language language);
     const vector<Language>& getLanguages() const;
     const string& getSDLErrorText() const;
@@ -68,7 +72,6 @@ public:
     ~LanguageResourceManager();
 
 };
-
 
 
 #endif // LANGUAGERESOURCEMANAGER_H_INCLUDED

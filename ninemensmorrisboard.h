@@ -1,12 +1,13 @@
 #ifndef MALOMPALYA_H_INCLUDED
 #define MALOMPALYA_H_INCLUDED
+
 #include "Board.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 
 /** \brief The class that manages nine men's morris game
  */
-class NineMensMorrisBoard : public Board{
+class NineMensMorrisBoard : public Board {
 
     /*
     constants for graphics
@@ -16,7 +17,7 @@ class NineMensMorrisBoard : public Board{
     static const int BOARD_WIDTH = WINDOW_WIDTH;
     static const int BOARD_HEIGHT = 400;
     static const int FRAME_WIDTH = WINDOW_WIDTH;
-    static const int FRAME_HEIGHT = (WINDOW_HEIGHT-BOARD_HEIGHT)/2;
+    static const int FRAME_HEIGHT = (WINDOW_HEIGHT - BOARD_HEIGHT) / 2;
     static const int PIECE_SIDE = 40;
     static const int END_BUTTON_WIDTH = 175;
     static const int END_BUTTON_HEIGHT = 47;
@@ -26,8 +27,7 @@ class NineMensMorrisBoard : public Board{
     static const int REMOVE_TEXT_SPACE = 40;
     const SDL_Color WHITE_LETTER_COLOR = {207, 149, 66};
     const SDL_Color BLACK_LETTER_COLOR = {50, 30, 10};
-    const SDL_Color SELECTION_COLOR =  {88,93,102};
-
+    const SDL_Color SELECTION_COLOR = {88, 93, 102};
 
 
     bool firstphase;        /**< Indicates whether the game is in the 1st phase, that is, the phase of placing pieces */
@@ -36,27 +36,27 @@ class NineMensMorrisBoard : public Board{
     int mills[16][3];       /**< The array of the possible mills, it contains the ids of the points */
     bool over;              /**< Indicates the end of the game, it is needed because the game can end in multiple ways */
 
-     /*
-    SDL/graphical variables
-    */
-    SDL_Window* window = NULL;
-    SDL_Renderer* renderer = NULL;
-    SDL_Surface* boardimage = NULL;
-    SDL_Texture* boardimagetexture = NULL;
-    SDL_Surface* whitebackground = NULL;
-    SDL_Texture* whitebackgroundtexture = NULL;
-    SDL_Surface* blackbackground = NULL;
-    SDL_Texture* blackbackgroundtexture = NULL;
-    SDL_Surface* endbackground = NULL;
-    SDL_Texture* endbackgroundtexture = NULL;
-    SDL_Surface* cup = NULL;
-    SDL_Texture* cuptexture = NULL;
-    SDL_Surface* button = NULL;
-    SDL_Texture* buttontexture = NULL;
-    TTF_Font* letterfont = NULL;
-    TTF_Font* numberfont = NULL;
-    SDL_Surface* text = NULL;
-    SDL_Texture* texttexture = NULL;
+    /*
+   SDL/graphical variables
+   */
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
+    SDL_Surface* boardimage = nullptr;
+    SDL_Texture* boardimagetexture = nullptr;
+    SDL_Surface* whitebackground = nullptr;
+    SDL_Texture* whitebackgroundtexture = nullptr;
+    SDL_Surface* blackbackground = nullptr;
+    SDL_Texture* blackbackgroundtexture = nullptr;
+    SDL_Surface* endbackground = nullptr;
+    SDL_Texture* endbackgroundtexture = nullptr;
+    SDL_Surface* cup = nullptr;
+    SDL_Texture* cuptexture = nullptr;
+    SDL_Surface* button = nullptr;
+    SDL_Texture* buttontexture = nullptr;
+    TTF_Font* letterfont = nullptr;
+    TTF_Font* numberfont = nullptr;
+    SDL_Surface* text = nullptr;
+    SDL_Texture* texttexture = nullptr;
     SDL_Rect rect;      /**<  A rectangle to be freely overwritten for displaying various things on the screen */
 
 
@@ -80,7 +80,7 @@ class NineMensMorrisBoard : public Board{
      * \return int -1 if no mill was found, otherwise the index of the mill in the mills array
      *
      */
-    int checkMill(const Point * point);
+    int checkMill(const Point* point);
 
     /** \brief Handles the mill possibly created after a move
      *
@@ -127,7 +127,7 @@ class NineMensMorrisBoard : public Board{
      * \return void
      *
      */
-    void showImage(SDL_Point position,SDL_Texture* image);
+    void showImage(SDL_Point position, SDL_Texture* image);
 
     /** \brief Shows a text on the screen
      *
@@ -139,7 +139,7 @@ class NineMensMorrisBoard : public Board{
      * \return void
      *
      */
-    void showText(const string s, int x, int y, SDL_Color color, TTF_Font * font);
+    void showText(string s, int x, int y, SDL_Color color, TTF_Font* font);
 
     /** \brief Draws the frame during game
      *
@@ -149,12 +149,12 @@ class NineMensMorrisBoard : public Board{
      */
     void drawFrame(bool top);
 
-     /** \brief Draws the frame needed at the removal of a piece
-     *
-     * \param top bool True, if the top frame should be drawn, false if the bottom frame should be drawn
-     * \return void
-     *
-     */
+    /** \brief Draws the frame needed at the removal of a piece
+    *
+    * \param top bool True, if the top frame should be drawn, false if the bottom frame should be drawn
+    * \return void
+    *
+    */
     void drawRemoveFrame(bool top);
 
     /** \brief Draws the frame needed when there's a new mill, but the other player has no removable pieces
@@ -178,7 +178,7 @@ class NineMensMorrisBoard : public Board{
      * \return void
      *
      */
-    void clickOnPoint(int & point);
+    void clickOnPoint(int& point);
 
     /** \brief Draws visual selection around a point
      *
@@ -201,16 +201,15 @@ public:
      * \param languageresourcemanager LanguageResourceManager* A pointer to a previously created LanguageResourceManager object, used for storing storing language specific resources
      *
      */
-    NineMensMorrisBoard(LanguageResourceManager* languageresourcemanager);
+    explicit NineMensMorrisBoard(LanguageResourceManager* languageresourcemanager);
 
-     /** \brief Handles the course of the play after the creation of the game
-     *
-     * \return void
-     *
-     */
-    void play();
-
-    ~NineMensMorrisBoard();
+    /** \brief Handles the course of the play after the creation of the game
+    *
+    * \return void
+    *
+    */
+    void play() override;
+    ~NineMensMorrisBoard() override;
 };
 
 #endif // MALOMPALYA_H_INCLUDED

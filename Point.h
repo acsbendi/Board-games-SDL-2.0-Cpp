@@ -1,5 +1,6 @@
 #ifndef MEZO_H_INCLUDED
 #define MEZO_H_INCLUDED
+
 #include <SDL.h>
 #include "Player.h"
 #include "Piece.h"
@@ -8,12 +9,11 @@ class Piece;
 
 /** \brief The class representing the points of a board, where pieces can move (e.g. the squares in snakes and ladders)
  */
-class Point
-{
+class Point {
 protected:
     const int id;   /**< The identification number of the point  */
-    Point * neighbors[4];   /**< The array containing pointers to the neighbors of the point (4 at most) */
-    Piece * piece;  /**< Pointer to the piece on the point */
+    Point* neighbors[4];   /**< The array containing pointers to the neighbors of the point (4 at most) */
+    Piece* piece;  /**< Pointer to the piece on the point */
     SDL_Point coordinates; /**< SDL structure for storing x,y coordinates on the window  */
 public:
 
@@ -22,7 +22,7 @@ public:
      * \param id int The identification number to be set
      *
      */
-    Point(int id);
+    explicit Point(int id);
 
     /** \brief Indexing operator, for handling its neighbors
      *
@@ -30,7 +30,7 @@ public:
      * \return Point*& Reference of the neighbor given by its index
      *
      */
-    Point *& operator[](int i);
+    Point*& operator[](int i);
 
     /** \brief Constant indexing operator, for handling its neighbors
      *
@@ -38,7 +38,7 @@ public:
      * \return const Point* The neighbor given by its index
      *
      */
-    const Point * operator[](int i) const;
+    const Point* operator[](int i) const;
 
     /** \brief Checks whether the point is occupied by a piece
      *
@@ -53,14 +53,14 @@ public:
      * \return void
      *
      */
-    void setPiece(Piece * piece);
+    void setPiece(Piece* piece);
 
     /** \brief Returns the piece on the point
      *
      * \return Piece* A pointer to the piece occupying the point
      *
      */
-    Piece * getPiece() const;
+    Piece* getPiece() const;
 
     /** \brief Returns the id of the point
      *
