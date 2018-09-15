@@ -5,6 +5,7 @@
 #include "snakesandladdersboard.h"
 #include "Helper.h"
 
+const SDL_Color SnakesAndLaddersBoard::TEXT_COLOR = {24,22,22};
 
 int SnakesAndLaddersBoard::click(int& x, int& y)
 {
@@ -47,7 +48,7 @@ void SnakesAndLaddersBoard::roll(int number)
 
 void SnakesAndLaddersBoard::pieceOnPoint(const Point* point, int jatekos)
 {
-    rect = {point->getCoordinates().x + 1 + (jatekos%3)*21, point->getCoordinates().y  + 1 + (jatekos/3)*33,PIECE_WIDTH,PIECE_HEIGHT };
+    SDL_Rect rect = {point->getCoordinates().x + 1 + (jatekos%3)*21, point->getCoordinates().y  + 1 + (jatekos/3)*33,PIECE_WIDTH,PIECE_HEIGHT };
     SDL_RenderCopy(renderer,players[jatekos]->getTexture(),0,&rect);
 }
 
@@ -61,7 +62,7 @@ void SnakesAndLaddersBoard::drawEmptyBoard()
         for(int  j = 0; j < 10; j++)
         {
             int szam = 91+j-i*10;
-            rect = {points[szam-1]->getCoordinates().x,points[szam-1]->getCoordinates().y,SQUARE_SIDE,SQUARE_SIDE};
+            SDL_Rect rect = {points[szam-1]->getCoordinates().x,points[szam-1]->getCoordinates().y,SQUARE_SIDE,SQUARE_SIDE};
             switch((i+j) % 4)
             {
             case 0:
@@ -84,8 +85,8 @@ void SnakesAndLaddersBoard::drawEmptyBoard()
     /*
     loading other elements of the board - frame, snakes, ladders
     */
-    rect = {0,0,BOARD_WIDTH,BOARD_HEIGHT};
-    SDL_RenderCopy(renderer,boardimagetexture,0,&rect);
+    SDL_Rect boardrect = {0,0,BOARD_WIDTH,BOARD_HEIGHT};
+    SDL_RenderCopy(renderer,boardimagetexture,0,&boardrect);
 
     /*
     the numbers are missing from every 4th square - we have to draw them
@@ -96,7 +97,7 @@ void SnakesAndLaddersBoard::drawEmptyBoard()
         for(int j = 0; j < 10; j++)
         {
             int szam = 91+j-i*10;
-            rect = {points[szam-1]->getCoordinates().x,points[szam-1]->getCoordinates().y,SQUARE_SIDE,SQUARE_SIDE};
+            SDL_Rect numberrect = {points[szam-1]->getCoordinates().x,points[szam-1]->getCoordinates().y,SQUARE_SIDE,SQUARE_SIDE};
             switch((i+j) % 4)
             {
             case 3:
@@ -106,8 +107,11 @@ void SnakesAndLaddersBoard::drawEmptyBoard()
                 number = TTF_RenderUTF8_Blended(numberfont,helper::to_string(szam).c_str(), TEXT_COLOR);
                 SDL_DestroyTexture(numbertexture);
                 numbertexture =  SDL_CreateTextureFromSurface(renderer, number);
-                rect = {rect.x+ (szam > 9 ? 30 : 47 ),rect.y-4,w/5,h/5};
-                SDL_RenderCopy(renderer,numbertexture,0,&rect);
+                numberrect.x += (szam > 9 ? 30 : 47 );
+                numberrect.y -= 4;
+                numberrect.w = w/5;
+                numberrect.h = h/5;
+                SDL_RenderCopy(renderer,numbertexture,0,&numberrect);
                 break;
             }
         }
@@ -150,40 +154,40 @@ void SnakesAndLaddersBoard::showText(const string s, int x, int y, SDL_Color szi
     number = TTF_RenderUTF8_Blended(font,s.c_str(),szin);
     SDL_DestroyTexture(numbertexture);
     numbertexture =  SDL_CreateTextureFromSurface(renderer, number);
-    rect = {x,y,w/3,h/3};   //only 3rd of size, the fonts are intentionally loaded in a size 3 times greater, so that they don't look blurry
+    SDL_Rect rect = {x,y,w/3,h/3};   //only 3rd of size, the fonts are intentionally loaded in a size 3 times greater, so that they don't look blurry
     SDL_RenderCopy(renderer,numbertexture,0,&rect);
 }
 
 void SnakesAndLaddersBoard::drawRoll()
 {
-    rect = {BOARD_WIDTH,0,WINDOW_WIDTH-BOARD_WIDTH,WINDOW_HEIGHT};
-    SDL_RenderCopy(renderer,backgroundtexture,0,&rect);         //loading background
-    rect = {ROLL_BUTTON_X,ROLL_BUTTON_Y,ROLL_BUTTON_DIAMETER,ROLL_BUTTON_DIAMETER};
-    SDL_RenderCopy(renderer,rollbuttontexture,0,&rect);         //loading roll button
-    rect = {ROLL_IMAGE_X,ROLL_IMAGE_Y,ROLL_IMAGE_WIDTH,ROLL_IMAGE_HEIGHT};
-    SDL_RenderCopy(renderer,greenbackgroundtexture,0,&rect);    //loading green background
-    rect =  {BOARD_WIDTH + (WINDOW_WIDTH-BOARD_WIDTH-DICE_SHAKER_WIDTH)/2,0,DICE_SHAKER_WIDTH,DICE_SHAKER_HEIGHT};
-    SDL_RenderCopyEx(renderer,diceshakertexture,0,&rect,0,0,SDL_FLIP_VERTICAL);  //loading dice shaker
+    SDL_Rect backgroundrect = {BOARD_WIDTH,0,WINDOW_WIDTH-BOARD_WIDTH,WINDOW_HEIGHT};
+    SDL_RenderCopy(renderer,backgroundtexture,0,&backgroundrect);         //loading background
+    SDL_Rect rollButtonRect = {ROLL_BUTTON_X,ROLL_BUTTON_Y,ROLL_BUTTON_DIAMETER,ROLL_BUTTON_DIAMETER};
+    SDL_RenderCopy(renderer,rollbuttontexture,0,&rollButtonRect);         //loading roll button
+    SDL_Rect greenbackgroundrect = {ROLL_IMAGE_X,ROLL_IMAGE_Y,ROLL_IMAGE_WIDTH,ROLL_IMAGE_HEIGHT};
+    SDL_RenderCopy(renderer,greenbackgroundtexture,0,&greenbackgroundrect);    //loading green background
+    SDL_Rect diceshakerrect =  {BOARD_WIDTH + (WINDOW_WIDTH-BOARD_WIDTH-DICE_SHAKER_WIDTH)/2,0,DICE_SHAKER_WIDTH,DICE_SHAKER_HEIGHT};
+    SDL_RenderCopyEx(renderer,diceshakertexture,0,&diceshakerrect,0,0,SDL_FLIP_VERTICAL);  //loading dice shaker
     SDL_RenderPresent(renderer);
 }
 
 void SnakesAndLaddersBoard::drawSelection(int current)
 {
-    rect = {BOARD_WIDTH,0,WINDOW_WIDTH-BOARD_WIDTH,WINDOW_HEIGHT};
-    SDL_RenderCopy(renderer,backgroundtexture,0,&rect);     //displaying background
+    SDL_Rect backgroundrect = {BOARD_WIDTH,0,WINDOW_WIDTH-BOARD_WIDTH,WINDOW_HEIGHT};
+    SDL_RenderCopy(renderer,backgroundtexture,0,&backgroundrect);     //displaying background
     showText(languageresourcemanager->getSnakesAndLaddersSelectionScreenText1(),
              languageresourcemanager->getSnakesAndLaddersSelectionScreenText1X(), SELECTION_TEXT_Y, TEXT_COLOR, letterfont);
     showText(languageresourcemanager->getSnakesAndLaddersSelectionScreenText2(),
              languageresourcemanager->getSnakesAndLaddersSelectionScreenText2X(), SELECTION_TEXT_Y + SELECTION_TEXT_SPACE, TEXT_COLOR, letterfont);
     showText(languageresourcemanager->getSnakesAndLaddersSelectionScreenText3(),
              languageresourcemanager->getSnakesAndLaddersSelectionScreenText3X(), SELECTION_TEXT_Y + 2*SELECTION_TEXT_SPACE, TEXT_COLOR, letterfont);  //showing the question about the number of players
-    rect = {INCREMENT_BUTTON_X,INCREMENT_BUTTON_Y,INCREMENT_BUTTON_WIDTH,INCREMENT_BUTTON_HEIGHT};
-    SDL_RenderCopy(renderer,incrementbuttontexture,0,&rect);     //displaying increment button
+    SDL_Rect incrementbuttonrect = {INCREMENT_BUTTON_X,INCREMENT_BUTTON_Y,INCREMENT_BUTTON_WIDTH,INCREMENT_BUTTON_HEIGHT};
+    SDL_RenderCopy(renderer,incrementbuttontexture,0,&incrementbuttonrect);     //displaying increment button
     showText(helper::to_string(current).c_str(), NUMBER_OF_PLAYERS_X,NUMBER_OF_PLAYERS_Y, TEXT_COLOR, letterfont);   //showing the currently selected number of players
-    rect = {INCREMENT_BUTTON_X,DECREMENT_BUTTON_Y,INCREMENT_BUTTON_WIDTH,INCREMENT_BUTTON_HEIGHT};
-    SDL_RenderCopyEx(renderer,incrementbuttontexture,0,&rect,0,0,SDL_FLIP_VERTICAL); //displaying decrement button, using a vertical flip
-    rect = {START_BUTTON_X,START_BUTTON_Y,START_BUTTON_WIDTH,START_BUTTON_HEIGHT};
-    SDL_RenderCopy(renderer,buttontexture,0,&rect);       //displaying start button
+    SDL_Rect decrementbuttonrect = {INCREMENT_BUTTON_X,DECREMENT_BUTTON_Y,INCREMENT_BUTTON_WIDTH,INCREMENT_BUTTON_HEIGHT};
+    SDL_RenderCopyEx(renderer,incrementbuttontexture,0,&decrementbuttonrect,0,0,SDL_FLIP_VERTICAL); //displaying decrement button, using a vertical flip
+    SDL_Rect startbuttonrect = {START_BUTTON_X,START_BUTTON_Y,START_BUTTON_WIDTH,START_BUTTON_HEIGHT};
+    SDL_RenderCopy(renderer,buttontexture,0,&startbuttonrect);       //displaying start button
     SDL_RenderPresent(renderer);
 }
 
@@ -353,23 +357,25 @@ void SnakesAndLaddersBoard::initGraphics()
 
     //setting the coordinates of points
     for(int i = 0; i < 10; i++)
-        for(int j = 0; j < 10; j++)
-            points[90+j-i*10]->setCoordinates({4+70*j,4+70*i});
+        for(int j = 0; j < 10; j++){
+            SDL_Point point = {4+70*j,4+70*i};
+            points[90+j-i*10]->setCoordinates(point);
+        }
 }
 
 void SnakesAndLaddersBoard::showEnd(int winner)
 {
-    rect = {0,0,WINDOW_WIDTH,WINDOW_HEIGHT};
-    SDL_RenderCopy(renderer,endbackgroundtexture,0,&rect); //loading the background of the end screen
-    rect = {WINDOW_WIDTH/2-WREATH_WIDTH/2,WREATH_Y,WREATH_WIDTH,WREATH_HEIGHT};
-    SDL_RenderCopy(renderer,wreathtexture,0,&rect);        //loading the wreath around the piece
-    rect = {WINDOW_WIDTH/2-END_PIECE_WIDTH/2,END_PIECE_Y,END_PIECE_WIDTH,END_PIECE_HEIGHT};
-    SDL_RenderCopy(renderer,players[winner]->getTexture(),0,&rect);  //loading the piece for the end screen (its size is different than while on the board)
+    SDL_Rect endbackgroundrect = {0,0,WINDOW_WIDTH,WINDOW_HEIGHT};
+    SDL_RenderCopy(renderer,endbackgroundtexture,0,&endbackgroundrect); //loading the background of the end screen
+    SDL_Rect wreathrect = {WINDOW_WIDTH/2-WREATH_WIDTH/2,WREATH_Y,WREATH_WIDTH,WREATH_HEIGHT};
+    SDL_RenderCopy(renderer,wreathtexture,0,&wreathrect);        //loading the wreath around the piece
+    SDL_Rect playerrect = {WINDOW_WIDTH/2-END_PIECE_WIDTH/2,END_PIECE_Y,END_PIECE_WIDTH,END_PIECE_HEIGHT};
+    SDL_RenderCopy(renderer,players[winner]->getTexture(),0,&playerrect);  //loading the piece for the end screen (its size is different than while on the board)
     showText(players[winner]->getName().c_str(),languageresourcemanager->getSnakesAndLaddersPlayerNameX(winner),END_TEXT_Y,TEXT_COLOR,letterfont);
     showText(languageresourcemanager->getSnakesAndLaddersEndScreenText1(),languageresourcemanager->getSnakesAndLaddersEndScreenText1X(),END_TEXT_Y + END_TEXT_SPACE,TEXT_COLOR,letterfont);
     showText(languageresourcemanager->getSnakesAndLaddersEndScreenText2(),languageresourcemanager->getSnakesAndLaddersEndScreenText2X(),END_TEXT_Y + 2*END_TEXT_SPACE,TEXT_COLOR,letterfont);
-    rect = {WINDOW_WIDTH/2-END_BUTTON_WIDTH/2,END_BUTTON_Y,END_BUTTON_WIDTH,END_BUTTON_HEIGHT};
-    SDL_RenderCopy(renderer,endbuttontexture,0,&rect);
+    SDL_Rect endbuttonrect = {WINDOW_WIDTH/2-END_BUTTON_WIDTH/2,END_BUTTON_Y,END_BUTTON_WIDTH,END_BUTTON_HEIGHT};
+    SDL_RenderCopy(renderer,endbuttontexture,0,&endbuttonrect);
     SDL_RenderPresent(renderer);
 
 
@@ -468,10 +474,10 @@ void SnakesAndLaddersBoard::rollAnimation(int roll)
         }
         rollimagetexture = SDL_CreateTextureFromSurface(renderer,rollimage);
         SDL_Delay(ANIMATION_DELAY);
-        rect = {ROLL_IMAGE_X,ROLL_IMAGE_Y,ROLL_IMAGE_WIDTH,ROLL_IMAGE_HEIGHT};
-        SDL_RenderCopy(renderer,rollimagetexture,0,&rect);
-        rect =  {DICE_SHAKER_X,0,DICE_SHAKER_WIDTH,DICE_SHAKER_HEIGHT};
-        SDL_RenderCopyEx(renderer,diceshakertexture,0,&rect,0,0,SDL_FLIP_VERTICAL);
+        SDL_Rect rollimagerect = {ROLL_IMAGE_X,ROLL_IMAGE_Y,ROLL_IMAGE_WIDTH,ROLL_IMAGE_HEIGHT};
+        SDL_RenderCopy(renderer,rollimagetexture,0,&rollimagerect);
+        SDL_Rect diceshakerrect = {DICE_SHAKER_X,0,DICE_SHAKER_WIDTH,DICE_SHAKER_HEIGHT};
+        SDL_RenderCopyEx(renderer,diceshakertexture,0,&diceshakerrect,0,0,SDL_FLIP_VERTICAL);
         SDL_RenderPresent(renderer);
         SDL_FreeSurface(rollimage);
         SDL_DestroyTexture(rollimagetexture);
@@ -488,10 +494,10 @@ void SnakesAndLaddersBoard::rollAnimation(int roll)
         }
         rollimagetexture = SDL_CreateTextureFromSurface(renderer,rollimage);
         SDL_Delay(ANIMATION_DELAY);
-        rect = {ROLL_IMAGE_X,ROLL_IMAGE_Y,ROLL_IMAGE_WIDTH,ROLL_IMAGE_HEIGHT};
-        SDL_RenderCopy(renderer,rollimagetexture,0,&rect);
-        rect =  {DICE_SHAKER_X,0,DICE_SHAKER_WIDTH,DICE_SHAKER_HEIGHT};
-        SDL_RenderCopyEx(renderer,diceshakertexture,0,&rect,0,0,SDL_FLIP_VERTICAL);
+        SDL_Rect rollimagerect = {ROLL_IMAGE_X,ROLL_IMAGE_Y,ROLL_IMAGE_WIDTH,ROLL_IMAGE_HEIGHT};
+        SDL_RenderCopy(renderer,rollimagetexture,0,&rollimagerect);
+        SDL_Rect diceshakerrect =  {DICE_SHAKER_X,0,DICE_SHAKER_WIDTH,DICE_SHAKER_HEIGHT};
+        SDL_RenderCopyEx(renderer,diceshakertexture,0,&diceshakerrect,0,0,SDL_FLIP_VERTICAL);
         SDL_RenderPresent(renderer);
         SDL_FreeSurface(rollimage);
         SDL_DestroyTexture(rollimagetexture);

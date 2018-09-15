@@ -21,7 +21,7 @@ class Application
     /** \brief The part of screen the user's mouse is currently pointing at
      */
     enum Selected { ninemensmorris, snakesandladders, language, none};
-    Selected selected = none;   /**< State variable for indicating mouse position */
+    Selected selected;   /**< State variable for indicating mouse position */
     LanguageResourceManager* languageresourcemanager;
     static const int WINDOW_WIDTH = 640;
     static const int WINDOW_HEIGHT = 480;
@@ -38,8 +38,8 @@ class Application
     static const int LANGUAGE_LIST_TOP_HEIGHT = 18;
     static const int LANGUAGE_LIST_BOTTOM_HEIGHT = 18;
     static const int LANGUAGE_LIST_BOTTOM_OVERLAP = 5;
-    const SDL_Color LETTER_COLOR = {44, 127, 3};
-    const SDL_Color SELECTION_COLOR =  {88,93,102,130};
+    static const SDL_Color LETTER_COLOR;
+    static const SDL_Color SELECTION_COLOR;
     SDL_Window* window = NULL;
     SDL_Renderer* renderer = NULL;
     SDL_Surface* startpicture = NULL;

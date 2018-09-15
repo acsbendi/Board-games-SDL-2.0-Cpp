@@ -24,9 +24,9 @@ class NineMensMorrisBoard : public Board{
     static const int END_TEXT_Y = 190;
     static const int END_TEXT_SPACE = 75;
     static const int REMOVE_TEXT_SPACE = 40;
-    const SDL_Color WHITE_LETTER_COLOR = {207, 149, 66};
-    const SDL_Color BLACK_LETTER_COLOR = {50, 30, 10};
-    const SDL_Color SELECTION_COLOR =  {88,93,102};
+    static const SDL_Color WHITE_LETTER_COLOR;
+    static const SDL_Color BLACK_LETTER_COLOR;
+    static const SDL_Color SELECTION_COLOR;
 
 
 
@@ -57,8 +57,6 @@ class NineMensMorrisBoard : public Board{
     TTF_Font* numberfont = NULL;
     SDL_Surface* text = NULL;
     SDL_Texture* texttexture = NULL;
-    SDL_Rect rect;      /**<  A rectangle to be freely overwritten for displaying various things on the screen */
-
 
     /** \brief Initializes the window, images etc needed for the graphical interface
      *

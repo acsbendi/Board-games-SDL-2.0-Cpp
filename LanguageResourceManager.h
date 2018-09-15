@@ -11,7 +11,7 @@ enum Language { magyar, english };
  */
 class LanguageResourceManager{
     vector<string> strings;
-    vector<Language> languages = {magyar, english};
+    vector<Language> languages;
     Language current;
 public:
     LanguageResourceManager(Language language);

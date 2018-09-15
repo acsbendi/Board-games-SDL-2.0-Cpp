@@ -10,6 +10,10 @@
 
 using std::find;
 
+const SDL_Color NineMensMorrisBoard::WHITE_LETTER_COLOR = {207, 149, 66};
+const SDL_Color NineMensMorrisBoard::BLACK_LETTER_COLOR = {50, 30, 10};
+const SDL_Color NineMensMorrisBoard::SELECTION_COLOR =  {88,93,102};
+
 void NineMensMorrisBoard::selectPoint(int point)
 {
     filledCircleRGBA(renderer,points[point-1]->getCoordinates().x,points[point-1]->getCoordinates().y,25,SELECTION_COLOR.r,SELECTION_COLOR.g,SELECTION_COLOR.b,255);
@@ -25,7 +29,7 @@ void NineMensMorrisBoard::showText(const string s, int x, int y, SDL_Color szin,
     text = TTF_RenderUTF8_Blended(font,s.c_str(),szin);
     SDL_DestroyTexture(texttexture);
     texttexture =  SDL_CreateTextureFromSurface(renderer, text);
-    rect = {x,y,w/3,h/3};   //only 3rd of size, the fonts are intentionally loaded in a size 3 times greater, so that they don't look blurry
+    SDL_Rect rect = {x,y,w/3,h/3};   //only 3rd of size, the fonts are intentionally loaded in a size 3 times greater, so that they don't look blurry
     SDL_RenderCopy(renderer,texttexture,0,&rect);
     SDL_RenderPresent(renderer);
 }
@@ -51,17 +55,17 @@ void NineMensMorrisBoard::clickOnPoint(int & point)
 
 void NineMensMorrisBoard::drawFrame(bool top)
 {
-    rect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
-    SDL_RenderCopy(renderer,top ? whitebackgroundtexture : blackbackgroundtexture,0,&rect);
-    rect = {180,top ? 30 : 530,40,40};
-    SDL_RenderCopy(renderer,top ? players[0]->getTexture() : players[1]->getTexture(),0,&rect);
+    SDL_Rect backgroundrect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
+    SDL_RenderCopy(renderer,top ? whitebackgroundtexture : blackbackgroundtexture,0,&backgroundrect);
+    SDL_Rect piecerect = {180,top ? 30 : 530,40,40};
+    SDL_RenderCopy(renderer,top ? players[0]->getTexture() : players[1]->getTexture(),0,&piecerect);
     showText(helper::to_string(9 - (top ? numberofwhitepieces : numberofblackpieces)).c_str(),75,top ? 19 : 519,top ? WHITE_LETTER_COLOR : BLACK_LETTER_COLOR,numberfont);
     SDL_RenderPresent(renderer);
 }
 
 void NineMensMorrisBoard::drawCantRemoveFrame(bool top)
 {
-    rect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
+    SDL_Rect rect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
     SDL_RenderCopy(renderer,top ? whitebackgroundtexture : blackbackgroundtexture,0,&rect);
     showText(languageresourcemanager->getNineMensMorrisCantRemoveText1(),
              languageresourcemanager->getNineMensMorrisCantRemoveText1X(),
@@ -76,7 +80,7 @@ void NineMensMorrisBoard::drawCantRemoveFrame(bool top)
 
 void NineMensMorrisBoard::drawRemoveFrame(bool top)
 {
-    rect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
+    SDL_Rect rect = {0,top ? 0 : BOARD_HEIGHT+FRAME_HEIGHT,FRAME_WIDTH,FRAME_HEIGHT};
     SDL_RenderCopy(renderer,top ? whitebackgroundtexture : blackbackgroundtexture,0,&rect);
     showText(languageresourcemanager->getNineMensMorrisRemoveText1(),
              languageresourcemanager->getNineMensMorrisRemoveText1X(),
@@ -89,7 +93,7 @@ void NineMensMorrisBoard::drawRemoveFrame(bool top)
 
 void NineMensMorrisBoard::drawBoard()
 {
-    rect = {0,FRAME_HEIGHT,BOARD_WIDTH,BOARD_WIDTH};
+    SDL_Rect rect = {0,FRAME_HEIGHT,BOARD_WIDTH,BOARD_WIDTH};
     SDL_RenderCopy(renderer,boardimagetexture,0,&rect);
     for(int i = 0; i < numberofpoints; i++)
     {
@@ -111,22 +115,38 @@ void NineMensMorrisBoard::setPoints()
     /*
     setting coordinates for points
     */
-    for(int i = 0; i < 3; i++)
-        points[i]->setCoordinates({52 + 147*i, 151});
-    for(int i = 0; i < 3; i++)
-        points[i+3]->setCoordinates({101 + 98*i, 200});
-    for(int i = 0; i < 3; i++)
-        points[i+6]->setCoordinates({150 + 49*i, 249});
-     for(int i = 0; i < 3; i++)
-        points[i+9]->setCoordinates({52 + 49*i, 299});
-    for(int i = 0; i < 3; i++)
-        points[i+12]->setCoordinates({248 + 49*i ,299});
-    for(int i = 0; i < 3; i++)
-        points[i+15]->setCoordinates({150 + 49*i, 348});
-    for(int i = 0; i < 3; i++)
-        points[i+18]->setCoordinates({101 + 98*i, 397});
-    for(int i = 0; i < 3; i++)
-        points[i+21]->setCoordinates({52 + 147*i, 446});
+    for(int i = 0; i < 3; i++){
+        SDL_Point point = {52 + 147*i, 151};
+        points[i]->setCoordinates(point);
+    }
+    for(int i = 0; i < 3; i++){
+        SDL_Point point = {101 + 98*i, 200};
+        points[i]->setCoordinates(point);
+    }
+    for(int i = 0; i < 3; i++){
+        SDL_Point point = {150 + 49*i, 249};
+        points[i]->setCoordinates(point);
+    }
+     for(int i = 0; i < 3; i++){
+         SDL_Point point = {52 + 49*i, 299};
+         points[i]->setCoordinates(point);
+     }
+    for(int i = 0; i < 3; i++){
+        SDL_Point point = {248 + 49*i ,299};
+        points[i]->setCoordinates(point);
+    }
+    for(int i = 0; i < 3; i++){
+        SDL_Point point = {150 + 49*i, 348};
+        points[i]->setCoordinates(point);
+    }
+    for(int i = 0; i < 3; i++){
+        SDL_Point point = {101 + 98*i, 397};
+        points[i]->setCoordinates(point);
+    }
+    for(int i = 0; i < 3; i++){
+        SDL_Point point = {52 + 147*i, 446};
+        points[i]->setCoordinates(point);
+    }
 
 
     /*
@@ -343,7 +363,7 @@ void NineMensMorrisBoard::secondPhase()
 
 void NineMensMorrisBoard::showImage(SDL_Point position,SDL_Texture* image)
 {
-    rect = {position.x - PIECE_SIDE/2,position.y - PIECE_SIDE/2,PIECE_SIDE,PIECE_SIDE};
+    SDL_Rect rect = {position.x - PIECE_SIDE/2,position.y - PIECE_SIDE/2,PIECE_SIDE,PIECE_SIDE};
     SDL_RenderCopy(renderer,image,0,&rect);
 }
 
@@ -461,10 +481,10 @@ void NineMensMorrisBoard::initGraphics()
 
 void NineMensMorrisBoard::showEnd(bool white)
 {
-    rect = {0,0,WINDOW_WIDTH,WINDOW_HEIGHT};
-    SDL_RenderCopy(renderer,endbackgroundtexture,0,&rect); //loading the background of the end screen
-    rect = {150,60,100,100};
-    SDL_RenderCopy(renderer,cuptexture,0,&rect);  //loading the cup on the end screen
+    SDL_Rect backgroundrect = {0,0,WINDOW_WIDTH,WINDOW_HEIGHT};
+    SDL_RenderCopy(renderer,endbackgroundtexture,0,&backgroundrect); //loading the background of the end screen
+    SDL_Rect cuprect = {150,60,100,100};
+    SDL_RenderCopy(renderer,cuptexture,0,&cuprect);  //loading the cup on the end screen
     showText(players[white ? 0 : 1]->getName(),
              white ? languageresourcemanager->getNineMensMorrisEndScreenWhiteX() : languageresourcemanager->getNineMensMorrisEndScreenBlackX(),
              END_TEXT_Y,BLACK_LETTER_COLOR,letterfont);
@@ -474,8 +494,8 @@ void NineMensMorrisBoard::showEnd(bool white)
     showText(languageresourcemanager->getNineMensMorrisEndScreenText2(),
              languageresourcemanager->getNineMensMorrisEndScreenText2X(),
              END_TEXT_Y + 2*END_TEXT_SPACE,BLACK_LETTER_COLOR,letterfont);
-    rect = {(WINDOW_WIDTH-END_BUTTON_WIDTH)/2,END_BUTTON_Y,END_BUTTON_WIDTH,END_BUTTON_HEIGHT};
-    SDL_RenderCopy(renderer,buttontexture,0,&rect); //loading end button
+    SDL_Rect buttonrect = {(WINDOW_WIDTH-END_BUTTON_WIDTH)/2,END_BUTTON_Y,END_BUTTON_WIDTH,END_BUTTON_HEIGHT};
+    SDL_RenderCopy(renderer,buttontexture,0,&buttonrect); //loading end button
     SDL_RenderPresent(renderer);
     SDL_Event event;
     while(SDL_WaitEvent(&event) && event.type != SDL_QUIT)

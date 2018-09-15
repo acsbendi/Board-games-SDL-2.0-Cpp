@@ -54,7 +54,7 @@ class SnakesAndLaddersBoard : public Board
     static const int NUMBER_OF_PLAYERS_Y = 310;
     static const int END_TEXT_Y = 260;
     static const int END_TEXT_SPACE = 70;
-    const SDL_Color TEXT_COLOR = {24,22,22}; /**< The color of various texts (including numbers on the board) on the screen */
+    static const SDL_Color TEXT_COLOR; /**< The color of various texts (including numbers on the board) on the screen */
 
 
     /*
@@ -96,8 +96,6 @@ class SnakesAndLaddersBoard : public Board
     TTF_Font* letterfont = NULL;
     SDL_Surface* number = NULL;
     SDL_Texture* numbertexture = NULL;
-    SDL_Rect rect;      /**<  A rectangle to be freely overwritten for displaying various things on the screen */
-
 
 
     /*!

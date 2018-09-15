@@ -7,6 +7,8 @@
 
 LanguageResourceManager::LanguageResourceManager(Language language)
 {
+    languages.push_back(magyar);
+    languages.push_back(english);
     setLanguage(language);
 }
 void LanguageResourceManager::setLanguage(Language language)

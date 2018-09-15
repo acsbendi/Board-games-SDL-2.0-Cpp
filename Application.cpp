@@ -1,6 +1,9 @@
 #include "Application.h"
 
-Application::Application()
+const SDL_Color Application::LETTER_COLOR = {44, 127, 3};
+const SDL_Color Application::SELECTION_COLOR =  {88,93,102,130};
+
+Application::Application() : selected(none)
 {
     languageresourcemanager = new LanguageResourceManager(english);
     temporaryselectedlanguage = languageresourcemanager->getCurrentLanguage();
@@ -206,21 +209,21 @@ void Application::languageSelection()
     const vector<Language>& languages = languageresourcemanager->getLanguages();
     for(int i = 0; i < (int)languages.size(); i++)
     {
-        rect = {LANGUAGE_LIST_X,LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i*LANGUAGE_LIST_ITEM_HEIGHT,LANGUAGE_LIST_WIDTH,LANGUAGE_LIST_ITEM_HEIGHT};
-        SDL_RenderCopy(renderer,languages[i] == temporaryselectedlanguage ? languageselectionmiddlewhitetexture : languageselectionmiddletexture,0,&rect);
+        SDL_Rect texturerect = {LANGUAGE_LIST_X,LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i*LANGUAGE_LIST_ITEM_HEIGHT,LANGUAGE_LIST_WIDTH,LANGUAGE_LIST_ITEM_HEIGHT};
+        SDL_RenderCopy(renderer,languages[i] == temporaryselectedlanguage ? languageselectionmiddlewhitetexture : languageselectionmiddletexture,0,&texturerect);
         SDL_FreeSurface(text);
         text = TTF_RenderUTF8_Blended(font,languageresourcemanager->getLanguageString(languages[i]).c_str(),LETTER_COLOR);
         SDL_DestroyTexture(texttexture);
         texttexture =  SDL_CreateTextureFromSurface(renderer, text);
-        rect = {LANGUAGE_LIST_TEXT_X,LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i*LANGUAGE_LIST_ITEM_HEIGHT - LANGUAGE_LIST_TEXT_Y_DIFFERENCE,
+        SDL_Rect textrect = {LANGUAGE_LIST_TEXT_X,LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i*LANGUAGE_LIST_ITEM_HEIGHT - LANGUAGE_LIST_TEXT_Y_DIFFERENCE,
                 LANGUAGE_LIST_TEXT_WIDTH,LANGUAGE_LIST_ITEM_HEIGHT
                };
-        SDL_RenderCopy(renderer,texttexture,0,&rect);
+        SDL_RenderCopy(renderer,texttexture,0,&textrect);
     }
-    rect = {LANGUAGE_LIST_X,LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + (int)languages.size()*LANGUAGE_LIST_ITEM_HEIGHT - LANGUAGE_LIST_BOTTOM_OVERLAP,
+    SDL_Rect selectionrect = {LANGUAGE_LIST_X,LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + (int)languages.size()*LANGUAGE_LIST_ITEM_HEIGHT - LANGUAGE_LIST_BOTTOM_OVERLAP,
             LANGUAGE_LIST_WIDTH,LANGUAGE_LIST_BOTTOM_HEIGHT
            };
-    SDL_RenderCopy(renderer,languageselectionbottomtexture,0,&rect);
+    SDL_RenderCopy(renderer,languageselectionbottomtexture,0,&selectionrect);
     SDL_RenderPresent(renderer);
     SDL_SetWindowTitle(window,languageresourcemanager->getLanguageSelectionText().c_str());
 }
