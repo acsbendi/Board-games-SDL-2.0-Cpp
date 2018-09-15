@@ -27,10 +27,14 @@ void LanguageResourceManager::setLanguage(Language language)
         break;
     }
    string line;
-while (std::getline(file, line))
-{
-   strings.push_back(line);
-}
+    try {
+        while (std::getline(file, line))
+        {
+            strings.push_back(line);
+        }
+    } catch(std::exception& e) {
+
+    }
     file.close();
 }
 
