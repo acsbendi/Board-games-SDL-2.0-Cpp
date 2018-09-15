@@ -14,6 +14,7 @@ void LanguageResourceManager::setLanguage(Language language)
     current = language;
     strings.clear();
     std::ifstream file;
+    file.exceptions(std::ifstream::badbit | std::ifstream::failbit);
     switch(language)
     {
     case magyar:

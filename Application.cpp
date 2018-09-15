@@ -25,6 +25,11 @@ void Application::initGraphics()
     }
 
     font = TTF_OpenFont("resources/fonts/times.ttf", 120);
+    if(font == NULL)
+    {
+        std::cerr << languageresourcemanager->getFontErrorText() << SDL_GetError() << std::endl;
+        return;
+    }
     TTF_SetFontStyle(font,TTF_STYLE_BOLD);
 
     startpicture = SDL_LoadBMP("resources/images/start.bmp");
