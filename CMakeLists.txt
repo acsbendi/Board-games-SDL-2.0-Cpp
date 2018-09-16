@@ -18,7 +18,6 @@ add_executable(Board_Games
         Application.h
         Board.cpp
         Board.h
-        Helper.h
         LanguageResourceManager.cpp
         LanguageResourceManager.h
         NineMensMorrisBoard.cpp

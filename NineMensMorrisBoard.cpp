@@ -5,7 +5,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL2_gfxPrimitives.h>
-#include "Helper.h"
 #include "ninemensmorrisboard.h"
 
 using std::find;
@@ -57,7 +56,7 @@ void NineMensMorrisBoard::drawFrame(bool top) {
     SDL_RenderCopy(renderer, top ? whitebackgroundtexture : blackbackgroundtexture, nullptr, &rect);
     rect = {180, top ? 30 : 530, 40, 40};
     SDL_RenderCopy(renderer, top ? players[0]->getTexture() : players[1]->getTexture(), nullptr, &rect);
-    showText(helper::to_string(9 - (top ? numberofwhitepieces : numberofblackpieces)), 75, top ? 19 : 519,
+    showText(std::to_string(9 - (top ? numberofwhitepieces : numberofblackpieces)), 75, top ? 19 : 519,
              top ? WHITE_LETTER_COLOR : BLACK_LETTER_COLOR, numberfont);
     SDL_RenderPresent(renderer);
 }

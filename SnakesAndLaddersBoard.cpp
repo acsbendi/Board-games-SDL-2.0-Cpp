@@ -1,7 +1,6 @@
 #include <iostream>
 #include <sstream>
 #include "snakesandladdersboard.h"
-#include "Helper.h"
 
 
 int SnakesAndLaddersBoard::click(int& x, int& y) {
@@ -96,9 +95,9 @@ void SnakesAndLaddersBoard::drawEmptyBoard() {
             switch ((i + j) % 4) {
                 case 3:
                     int w, h;
-                    TTF_SizeUTF8(numberfont, helper::to_string(szam).c_str(), &w, &h);
+                    TTF_SizeUTF8(numberfont, std::to_string(szam).c_str(), &w, &h);
                     SDL_FreeSurface(number);
-                    number = TTF_RenderUTF8_Blended(numberfont, helper::to_string(szam).c_str(), TEXT_COLOR);
+                    number = TTF_RenderUTF8_Blended(numberfont, std::to_string(szam).c_str(), TEXT_COLOR);
                     SDL_DestroyTexture(numbertexture);
                     numbertexture = SDL_CreateTextureFromSurface(renderer, number);
                     rect = {rect.x + (szam > 9 ? 30 : 47), rect.y - 4, w / 5, h / 5};
@@ -177,7 +176,7 @@ void SnakesAndLaddersBoard::drawSelection(int current) {
              letterfont);  //showing the question about the number of players
     rect = {INCREMENT_BUTTON_X, INCREMENT_BUTTON_Y, INCREMENT_BUTTON_WIDTH, INCREMENT_BUTTON_HEIGHT};
     SDL_RenderCopy(renderer, incrementbuttontexture, nullptr, &rect);     //displaying increment button
-    showText(helper::to_string(current), NUMBER_OF_PLAYERS_X, NUMBER_OF_PLAYERS_Y, TEXT_COLOR,
+    showText(std::to_string(current), NUMBER_OF_PLAYERS_X, NUMBER_OF_PLAYERS_Y, TEXT_COLOR,
              letterfont);   //showing the currently selected number of players
     rect = {INCREMENT_BUTTON_X, DECREMENT_BUTTON_Y, INCREMENT_BUTTON_WIDTH, INCREMENT_BUTTON_HEIGHT};
     SDL_RenderCopyEx(renderer, incrementbuttontexture, nullptr, &rect, 0, nullptr,
