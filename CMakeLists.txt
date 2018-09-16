@@ -10,7 +10,7 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2TTF)
 find_package(SDL2GFX)
 
-include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIRS})
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 link_libraries(${SDL2GFX_LIBRARY} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2TTF_LIBRARY})
 
 add_executable(Board_Games

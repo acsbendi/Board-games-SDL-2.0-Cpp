@@ -12,22 +12,22 @@ class NineMensMorrisBoard : public Board {
     /*
     constants for graphics
     */
-    static const int WINDOW_WIDTH = 400;
-    static const int WINDOW_HEIGHT = 600;
-    static const int BOARD_WIDTH = WINDOW_WIDTH;
-    static const int BOARD_HEIGHT = 400;
-    static const int FRAME_WIDTH = WINDOW_WIDTH;
-    static const int FRAME_HEIGHT = (WINDOW_HEIGHT - BOARD_HEIGHT) / 2;
-    static const int PIECE_SIDE = 40;
-    static const int END_BUTTON_WIDTH = 175;
-    static const int END_BUTTON_HEIGHT = 47;
-    static const int END_BUTTON_Y = 450;
-    static const int END_TEXT_Y = 190;
-    static const int END_TEXT_SPACE = 75;
-    static const int REMOVE_TEXT_SPACE = 40;
-    const SDL_Color WHITE_LETTER_COLOR = {207, 149, 66};
-    const SDL_Color BLACK_LETTER_COLOR = {50, 30, 10};
-    const SDL_Color SELECTION_COLOR = {88, 93, 102};
+    static constexpr int WINDOW_WIDTH = 400;
+    static constexpr int WINDOW_HEIGHT = 600;
+    static constexpr int BOARD_WIDTH = WINDOW_WIDTH;
+    static constexpr int BOARD_HEIGHT = 400;
+    static constexpr int FRAME_WIDTH = WINDOW_WIDTH;
+    static constexpr int FRAME_HEIGHT = (WINDOW_HEIGHT - BOARD_HEIGHT) / 2;
+    static constexpr int PIECE_SIDE = 40;
+    static constexpr int END_BUTTON_WIDTH = 175;
+    static constexpr int END_BUTTON_HEIGHT = 47;
+    static constexpr int END_BUTTON_Y = 450;
+    static constexpr int END_TEXT_Y = 190;
+    static constexpr int END_TEXT_SPACE = 75;
+    static constexpr int REMOVE_TEXT_SPACE = 40;
+    static constexpr SDL_Color WHITE_LETTER_COLOR = {207, 149, 66};
+    static constexpr SDL_Color BLACK_LETTER_COLOR = {50, 30, 10};
+    static constexpr SDL_Color SELECTION_COLOR = {88, 93, 102};
 
 
     bool firstphase;        /**< Indicates whether the game is in the 1st phase, that is, the phase of placing pieces */

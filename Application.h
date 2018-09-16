@@ -23,23 +23,23 @@ class Application {
     };
     Selected selected = none;   /**< State variable for indicating mouse position */
     LanguageResourceManager* languageresourcemanager;
-    static const int WINDOW_WIDTH = 640;
-    static const int WINDOW_HEIGHT = 480;
-    static const int LANGUAGE_SELECTION_ICON_X = 585;
-    static const int LANGUAGE_SELECTION_ICON_Y = 20;
-    static const int LANGUAGE_SELECTION_ICON_SIDE = 35;
-    static const int LANGUAGE_LIST_X = 460;
-    static const int LANGUAGE_LIST_Y = 48;
-    static const int LANGUAGE_LIST_WIDTH = 150;
-    static const int LANGUAGE_LIST_TEXT_WIDTH = 120;
-    static const int LANGUAGE_LIST_TEXT_X = 480;
-    static const int LANGUAGE_LIST_TEXT_Y_DIFFERENCE = 5;
-    static const int LANGUAGE_LIST_ITEM_HEIGHT = 39;
-    static const int LANGUAGE_LIST_TOP_HEIGHT = 18;
-    static const int LANGUAGE_LIST_BOTTOM_HEIGHT = 18;
-    static const int LANGUAGE_LIST_BOTTOM_OVERLAP = 5;
-    const SDL_Color LETTER_COLOR = {44, 127, 3};
-    const SDL_Color SELECTION_COLOR = {88, 93, 102, 130};
+    static constexpr int WINDOW_WIDTH = 640;
+    static constexpr int WINDOW_HEIGHT = 480;
+    static constexpr int LANGUAGE_SELECTION_ICON_X = 585;
+    static constexpr int LANGUAGE_SELECTION_ICON_Y = 20;
+    static constexpr int LANGUAGE_SELECTION_ICON_SIDE = 35;
+    static constexpr int LANGUAGE_LIST_X = 460;
+    static constexpr int LANGUAGE_LIST_Y = 48;
+    static constexpr int LANGUAGE_LIST_WIDTH = 150;
+    static constexpr int LANGUAGE_LIST_TEXT_WIDTH = 120;
+    static constexpr int LANGUAGE_LIST_TEXT_X = 480;
+    static constexpr int LANGUAGE_LIST_TEXT_Y_DIFFERENCE = 5;
+    static constexpr int LANGUAGE_LIST_ITEM_HEIGHT = 39;
+    static constexpr int LANGUAGE_LIST_TOP_HEIGHT = 18;
+    static constexpr int LANGUAGE_LIST_BOTTOM_HEIGHT = 18;
+    static constexpr int LANGUAGE_LIST_BOTTOM_OVERLAP = 5;
+    static constexpr SDL_Color LETTER_COLOR = {44, 127, 3};
+    static constexpr SDL_Color SELECTION_COLOR = {88, 93, 102, 130};
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
     SDL_Surface* startpicture = nullptr;
@@ -107,6 +107,9 @@ class Application {
      *
      */
     void initGraphics();
+
+    void onMouseMotion(const SDL_MouseMotionEvent& motionevent);
+    void onMouseButtonDown(const SDL_Event& event);
 
 
 public:

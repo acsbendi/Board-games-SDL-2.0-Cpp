@@ -87,88 +87,10 @@ void Application::start() {
     {
         switch (event.type) {
             case SDL_MOUSEMOTION:
-                //the mouse stays near the language selection icon
-                if (selected == language && event.motion.x > LANGUAGE_LIST_X &&
-                    event.motion.y < LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT +
-                                     (int) languageresourcemanager->getLanguages().size() * LANGUAGE_LIST_ITEM_HEIGHT -
-                                     LANGUAGE_LIST_BOTTOM_OVERLAP + LANGUAGE_LIST_BOTTOM_HEIGHT) {
-                    for (int i = 0; i < (int) languageresourcemanager->getLanguages().size(); i++) {
-                        if (temporaryselectedlanguage != languageresourcemanager->getLanguages()[i] &&
-                            event.motion.x > LANGUAGE_LIST_X && event.motion.y >
-                                                                LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT +
-                                                                i * LANGUAGE_LIST_ITEM_HEIGHT &&
-                            event.motion.x < LANGUAGE_LIST_X + LANGUAGE_LIST_WIDTH &&
-                            event.motion.y <
-                            LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i * LANGUAGE_LIST_ITEM_HEIGHT +
-                            LANGUAGE_LIST_ITEM_HEIGHT)
-                            temporaryselectedlanguage = languageresourcemanager->getLanguages()[i];
-                        languageSelection();
-                    }
-                }
-                    //the mouse moves onto the language selection icon
-                else if (event.motion.x > LANGUAGE_SELECTION_ICON_X &&
-                         event.motion.x < LANGUAGE_SELECTION_ICON_X + LANGUAGE_SELECTION_ICON_SIDE &&
-                         event.motion.y > LANGUAGE_SELECTION_ICON_Y &&
-                         event.motion.y < LANGUAGE_SELECTION_ICON_Y + LANGUAGE_SELECTION_ICON_SIDE) {
-                    if (selected != language) {
-                        temporaryselectedlanguage = languageresourcemanager->getCurrentLanguage();
-                        languageSelection();
-                    }
-                    selected = language;
-                } else if (event.motion.x < 264 + event.motion.y * ((double) 100 /
-                                                                    480)) //the mouse is on the left side, which means nine men's morris is selected
-                {
-                    if (selected != ninemensmorris) nineMensMorrisSelected();
-                    selected = ninemensmorris;
-                } else if (event.motion.x > 275 + event.motion.y * ((double) 100 /
-                                                                    480)) //the mouse is on the right side, which means snakes and ladders is selected
-                {
-                    if (selected != snakesandladders) snakesAndLaddersSelected();
-                    selected = snakesandladders;
-                } else  //the mouse is on the middle line, which means nothing is selected
-                {
-                    selected = none;
-                    noneSelected();
-                    SDL_SetWindowTitle(window, languageresourcemanager->getApplicationWindowTitle().c_str());
-                    SDL_RenderPresent(renderer);
-                }
+                onMouseMotion(event.motion);
                 break;
             case SDL_MOUSEBUTTONDOWN:   //mouse click
-                switch (selected)    //where it happened (current position of the mouse)
-                {
-                    case ninemensmorris:
-                        SDL_HideWindow(window);  //when a game is running, the main menu should not be visible
-                        startNineMensMorris();
-                        SDL_Delay(1000);    //waiting for the game to close properly, this takes a short while
-                        SDL_ShowWindow(window);
-                        nineMensMorrisSelected();
-                        break;
-                    case snakesandladders:
-                        SDL_HideWindow(window); //when a game is running, the main menu should not be visible
-                        startSnakesAndLadders();
-                        SDL_Delay(1000);    //waiting for the game to close properly, this takes a short while
-                        SDL_ShowWindow(window);
-                        snakesAndLaddersSelected();
-                        break;
-                    case language:
-                        for (int i = 0; i < (int) languageresourcemanager->getLanguages().size(); i++) {
-                            if (languageresourcemanager->getCurrentLanguage() !=
-                                languageresourcemanager->getLanguages()[i] &&
-                                event.motion.x > LANGUAGE_LIST_X && event.motion.y >
-                                                                    LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT +
-                                                                    i * LANGUAGE_LIST_ITEM_HEIGHT &&
-                                event.motion.x < LANGUAGE_LIST_X + LANGUAGE_LIST_WIDTH &&
-                                event.motion.y <
-                                LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i * LANGUAGE_LIST_ITEM_HEIGHT +
-                                LANGUAGE_LIST_ITEM_HEIGHT) {
-                                languageresourcemanager->setLanguage(languageresourcemanager->getLanguages()[i]);
-                                languageSelection();
-                            }
-                        }
-                        break;
-                    case none:
-                        break;
-                }
+                onMouseButtonDown(event);
                 break;
             default:
                 break;
@@ -254,6 +176,94 @@ void Application::startNineMensMorris() {
     NineMensMorrisBoard ninemensmorrisboard(languageresourcemanager);
     ninemensmorrisboard.play();
 }
+
+
+void Application::onMouseMotion(const SDL_MouseMotionEvent& motionevent) {
+    //the mouse stays near the language selection icon
+    if (selected == language && motionevent.x > LANGUAGE_LIST_X &&
+            motionevent.y < LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT +
+                         (int) languageresourcemanager->getLanguages().size() * LANGUAGE_LIST_ITEM_HEIGHT -
+                         LANGUAGE_LIST_BOTTOM_OVERLAP + LANGUAGE_LIST_BOTTOM_HEIGHT) {
+        for (int i = 0; i < (int) languageresourcemanager->getLanguages().size(); i++) {
+            if (temporaryselectedlanguage != languageresourcemanager->getLanguages()[i] &&
+                    motionevent.x > LANGUAGE_LIST_X && motionevent.y >
+                                                    LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT +
+                                                    i * LANGUAGE_LIST_ITEM_HEIGHT &&
+                                                    motionevent.x < LANGUAGE_LIST_X + LANGUAGE_LIST_WIDTH &&
+                    motionevent.y <
+                LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i * LANGUAGE_LIST_ITEM_HEIGHT +
+                LANGUAGE_LIST_ITEM_HEIGHT)
+                temporaryselectedlanguage = languageresourcemanager->getLanguages()[i];
+            languageSelection();
+        }
+    }
+        //the mouse moves onto the language selection icon
+    else if (motionevent.x > LANGUAGE_SELECTION_ICON_X &&
+             motionevent.x < LANGUAGE_SELECTION_ICON_X + LANGUAGE_SELECTION_ICON_SIDE &&
+             motionevent.y > LANGUAGE_SELECTION_ICON_Y &&
+             motionevent.y < LANGUAGE_SELECTION_ICON_Y + LANGUAGE_SELECTION_ICON_SIDE) {
+        if (selected != language) {
+            temporaryselectedlanguage = languageresourcemanager->getCurrentLanguage();
+            languageSelection();
+        }
+        selected = language;
+    } else if (motionevent.x < 264 + motionevent.y * ((double) 100 /
+                                                        480)) //the mouse is on the left side, which means nine men's morris is selected
+    {
+        if (selected != ninemensmorris) nineMensMorrisSelected();
+        selected = ninemensmorris;
+    } else if (motionevent.x > 275 + motionevent.y * ((double) 100 /
+                                                        480)) //the mouse is on the right side, which means snakes and ladders is selected
+    {
+        if (selected != snakesandladders) snakesAndLaddersSelected();
+        selected = snakesandladders;
+    } else  //the mouse is on the middle line, which means nothing is selected
+    {
+        selected = none;
+        noneSelected();
+        SDL_SetWindowTitle(window, languageresourcemanager->getApplicationWindowTitle().c_str());
+        SDL_RenderPresent(renderer);
+    }
+}
+
+void Application::onMouseButtonDown(const SDL_Event& event) {
+    switch (selected)    //where it happened (current position of the mouse)
+    {
+        case ninemensmorris:
+            SDL_HideWindow(window);  //when a game is running, the main menu should not be visible
+            startNineMensMorris();
+            SDL_Delay(1000);    //waiting for the game to close properly, this takes a short while
+            SDL_ShowWindow(window);
+            nineMensMorrisSelected();
+            break;
+        case snakesandladders:
+            SDL_HideWindow(window); //when a game is running, the main menu should not be visible
+            startSnakesAndLadders();
+            SDL_Delay(1000);    //waiting for the game to close properly, this takes a short while
+            SDL_ShowWindow(window);
+            snakesAndLaddersSelected();
+            break;
+        case language:
+            for (int i = 0; i < (int) languageresourcemanager->getLanguages().size(); i++) {
+                if (languageresourcemanager->getCurrentLanguage() !=
+                    languageresourcemanager->getLanguages()[i] &&
+                    event.motion.x > LANGUAGE_LIST_X && event.motion.y >
+                                                        LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT +
+                                                        i * LANGUAGE_LIST_ITEM_HEIGHT &&
+                    event.motion.x < LANGUAGE_LIST_X + LANGUAGE_LIST_WIDTH &&
+                    event.motion.y <
+                    LANGUAGE_LIST_Y + LANGUAGE_LIST_TOP_HEIGHT + i * LANGUAGE_LIST_ITEM_HEIGHT +
+                    LANGUAGE_LIST_ITEM_HEIGHT) {
+                    languageresourcemanager->setLanguage(languageresourcemanager->getLanguages()[i]);
+                    languageSelection();
+                }
+            }
+            break;
+        case none:
+            break;
+    }
+}
+
 
 Application::~Application() {
     delete languageresourcemanager;

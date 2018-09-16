@@ -14,50 +14,50 @@ private:
     /*
     constants for graphics
     */
-    static const int WINDOW_WIDTH = 904;
-    static const int WINDOW_HEIGHT = 704;
-    static const int BOARD_WIDTH = 704;
-    static const int BOARD_HEIGHT = 704;
-    static const int START_BUTTON_WIDTH = 150;
-    static const int START_BUTTON_HEIGHT = 42;
-    static const int START_BUTTON_Y = 550;
-    static const int START_BUTTON_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - START_BUTTON_WIDTH) / 2;
-    static const int PIECE_WIDTH = 19;
-    static const int PIECE_HEIGHT = 30;
-    static const int END_PIECE_WIDTH = 60;
-    static const int END_PIECE_HEIGHT = 100;
-    static const int END_PIECE_Y = 125;
-    static const int ROLL_BUTTON_DIAMETER = 175;
-    static const int ROLL_BUTTON_Y = 500;
-    static const int ROLL_BUTTON_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - ROLL_BUTTON_DIAMETER) / 2;
-    static const int END_BUTTON_WIDTH = 175;
-    static const int END_BUTTON_HEIGHT = 47;
-    static const int END_BUTTON_Y = 500;
-    static const int INCREMENT_BUTTON_WIDTH = 75;
-    static const int INCREMENT_BUTTON_HEIGHT = 57;
-    static const int INCREMENT_BUTTON_Y = 220;
-    static const int INCREMENT_BUTTON_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - INCREMENT_BUTTON_WIDTH) / 2;
-    static const int DECREMENT_BUTTON_Y = 420;
-    static const int WREATH_WIDTH = 150;
-    static const int WREATH_HEIGHT = 150;
-    static const int WREATH_Y = 107;
-    static const int SQUARE_SIDE = 66;
-    static const int ANIMATION_DELAY = 33;
-    static const int ROLL_IMAGE_WIDTH = 130;
-    static const int ROLL_IMAGE_HEIGHT = 280;
-    static const int ROLL_IMAGE_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - ROLL_IMAGE_WIDTH) / 2;
-    static const int ROLL_IMAGE_Y = 140;
-    static const int DICE_SHAKER_WIDTH = 150;
-    static const int DICE_SHAKER_HEIGHT = 150;
-    static const int DICE_SHAKER_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - DICE_SHAKER_WIDTH) / 2;
-    static const int SELECTION_TEXT_Y = 35;
-    static const int SELECTION_TEXT_SPACE = 50;
-    static const int NUMBER_OF_PLAYERS_X = 787;
-    static const int NUMBER_OF_PLAYERS_Y = 310;
-    static const int END_TEXT_Y = 260;
-    static const int END_TEXT_SPACE = 70;
-    const SDL_Color TEXT_COLOR = {24, 22,
-                                  22}; /**< The color of various texts (including numbers on the board) on the screen */
+    static constexpr int WINDOW_WIDTH = 904;
+    static constexpr int WINDOW_HEIGHT = 704;
+    static constexpr int BOARD_WIDTH = 704;
+    static constexpr int BOARD_HEIGHT = 704;
+    static constexpr int START_BUTTON_WIDTH = 150;
+    static constexpr int START_BUTTON_HEIGHT = 42;
+    static constexpr int START_BUTTON_Y = 550;
+    static constexpr int START_BUTTON_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - START_BUTTON_WIDTH) / 2;
+    static constexpr int PIECE_WIDTH = 19;
+    static constexpr int PIECE_HEIGHT = 30;
+    static constexpr int END_PIECE_WIDTH = 60;
+    static constexpr int END_PIECE_HEIGHT = 100;
+    static constexpr int END_PIECE_Y = 125;
+    static constexpr int ROLL_BUTTON_DIAMETER = 175;
+    static constexpr int ROLL_BUTTON_Y = 500;
+    static constexpr int ROLL_BUTTON_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - ROLL_BUTTON_DIAMETER) / 2;
+    static constexpr int END_BUTTON_WIDTH = 175;
+    static constexpr int END_BUTTON_HEIGHT = 47;
+    static constexpr int END_BUTTON_Y = 500;
+    static constexpr int INCREMENT_BUTTON_WIDTH = 75;
+    static constexpr int INCREMENT_BUTTON_HEIGHT = 57;
+    static constexpr int INCREMENT_BUTTON_Y = 220;
+    static constexpr int INCREMENT_BUTTON_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - INCREMENT_BUTTON_WIDTH) / 2;
+    static constexpr int DECREMENT_BUTTON_Y = 420;
+    static constexpr int WREATH_WIDTH = 150;
+    static constexpr int WREATH_HEIGHT = 150;
+    static constexpr int WREATH_Y = 107;
+    static constexpr int SQUARE_SIDE = 66;
+    static constexpr int ANIMATION_DELAY = 33;
+    static constexpr int ROLL_IMAGE_WIDTH = 130;
+    static constexpr int ROLL_IMAGE_HEIGHT = 280;
+    static constexpr int ROLL_IMAGE_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - ROLL_IMAGE_WIDTH) / 2;
+    static constexpr int ROLL_IMAGE_Y = 140;
+    static constexpr int DICE_SHAKER_WIDTH = 150;
+    static constexpr int DICE_SHAKER_HEIGHT = 150;
+    static constexpr int DICE_SHAKER_X = BOARD_WIDTH + (WINDOW_WIDTH - BOARD_WIDTH - DICE_SHAKER_WIDTH) / 2;
+    static constexpr int SELECTION_TEXT_Y = 35;
+    static constexpr int SELECTION_TEXT_SPACE = 50;
+    static constexpr int NUMBER_OF_PLAYERS_X = 787;
+    static constexpr int NUMBER_OF_PLAYERS_Y = 310;
+    static constexpr int END_TEXT_Y = 260;
+    static constexpr int END_TEXT_SPACE = 70;
+    static constexpr SDL_Color TEXT_COLOR =
+            {24, 22, 22}; /**< The color of various texts (including numbers on the board) on the screen */
 
 
     /*
